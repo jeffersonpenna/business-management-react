@@ -18,6 +18,12 @@ export const Container = styled.div`
     padding: 1.25rem;
     position: relative;
 
+    .modal__tittle {
+      text-align: center;
+      text-transform: uppercase;
+      padding: 20px 0 40px;
+    }
+
     .footer {
       position: absolute;
       right: 0;

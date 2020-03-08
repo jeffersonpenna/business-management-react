@@ -22,7 +22,7 @@ export const Container = styled.header`
     form {
       input {
         margin-right: 10px;
-        width: 200px;
+        width: 250px;
       }
     }
   }

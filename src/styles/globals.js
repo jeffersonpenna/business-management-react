@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { lighten, darken } from 'polished';
+import { darken } from 'polished';
 
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
@@ -24,6 +24,15 @@ export default createGlobalStyle`
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     color: #2c303a;
   }
+
+  input {
+    margin-right: 10px;
+    background-color: #fff;
+    border: 1px solid #2c303a;
+    padding: 10px;
+    border-radius: 4px;
+  }
+
 
   #root {
     margin: 0 auto;
@@ -73,5 +82,5 @@ export default createGlobalStyle`
       background: #ff961d;
       color: #2c303a;
     }
-  }
+  } 
 `;
