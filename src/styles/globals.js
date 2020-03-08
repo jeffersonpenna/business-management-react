@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { lighten } from 'polished';
+import { lighten, darken } from 'polished';
 
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
@@ -11,37 +11,67 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html, body, #root {
+    height: 100%;
+  }
+
   body {
-    background: #e1e3e8;
     -webkit-font-smoothing: antialiased;
   }
 
   body, input, button {
     font-size: 16px;
-    font-family: 'Roboto', Arial, Helvetica, sans-serif
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    color: #2c303a;
   }
 
   #root {
-    max-width: 1020px;
     margin: 0 auto;
-    padding: 0 20px 50px; 
   }
 
   button {
     cursor: pointer;
   }
 
-  .main-button {
-    background: #2c303a;
-    padding: 10px 15px;
+  .btn {
+    padding: 0.5rem 0.875rem;
     border: 0;
-    color: #e1e3e8;
-    border-radius: 8px;
+    border-radius: 4px;
     transition: all 0.2s;
     text-transform: uppercase;
+  }
+
+  .btn-light {
+    background: transparent;
+    color: #ff961d;
+    border: 1px solid #ff961d;
 
     &:hover {
-      background: ${lighten(0.15, '#2c303a')};
+      color: ${darken(0.12, '#ff961d')};
+      border: 1px solid ${darken(0.12, '#ff961d')};
+    }
+  }
+
+  .btn-primary {
+    border: 1px solid #2c303a;
+    background: transparent;
+    color: #2c303a;
+
+    &:hover {
+      border: 1px solid #ff961d;
+      color: #ff961d;
+    }
+  }
+
+  .btn-primary--dark {
+    border: 1px solid #2c303a;
+    background: #2c303a;
+    color: #e1e3e8;
+
+    &:hover {
+      border: 1px solid #ff961d;
+      background: #ff961d;
+      color: #2c303a;
     }
   }
 `;
