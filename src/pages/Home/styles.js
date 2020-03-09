@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   .btn-group {
@@ -13,6 +13,15 @@ export const Container = styled.div`
   }
 `;
 
+export const ContainerTable = styled.div`
+  display: ${props => (props.hasData.length ? 'block' : 'none')};
+  margin: 0 auto;
+  max-width: 1280px;
+  margin-top: 50px;
+  padding-bottom: 50px;
+  width: 100%;
+`;
+
 export const CompanyList = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,8 +30,11 @@ export const CompanyList = styled.div`
 `;
 
 export const NoDataRegistered = styled.div`
-  background: #e1e3e8;
-  padding: 3.125rem;
-  border-radius: 50%;
-  margin-bottom: 1.5rem;
+  display: ${props => (props.hasData.length ? 'none' : 'block')};
+  div {
+    background: #e1e3e8;
+    padding: 4.125rem;
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+  }
 `;

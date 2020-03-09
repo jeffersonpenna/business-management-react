@@ -1,17 +1,38 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { MdBusiness } from 'react-icons/md';
+import {
+  MdBusiness,
+  MdPictureAsPdf,
+  MdVisibility,
+  MdDelete,
+} from 'react-icons/md';
 
 import Modal from '../../components/Modal';
 
 import CompanyCreate from '../Company/create';
+import EmployeeCreate from '../Employee/create';
 
-import { Container, CompanyList, NoDataRegistered } from './styles';
+import {
+  Container,
+  ContainerTable,
+  CompanyList,
+  NoDataRegistered,
+} from './styles';
 
 class Home extends Component {
   state = {
     isOpenModalCompany: false,
     isOpenModalEmployee: false,
+    isOpenModalRemoveCompany: false,
+    companyToRemove: '',
+  };
+
+  toggleModalRemoveCompany = companyToRemove => {
+    this.setState({
+      isOpenModalRemoveCompany: !this.state.isOpenModalRemoveCompany,
+      companyToRemove,
+    });
   };
 
   toggleModalCompany = () => {
@@ -27,7 +48,7 @@ class Home extends Component {
   };
 
   render() {
-    console.log(this.props.company, '---------[1]');
+    const { companies } = this.props;
     return (
       <Container>
         <div className="btn-group">
@@ -46,34 +67,90 @@ class Home extends Component {
             Create employee
           </button>
         </div>
-
         <Modal
           show={this.state.isOpenModalCompany}
           onClose={this.toggleModalCompany}
-          title="Creeate new company"
+          title="Create a new company"
         >
           <CompanyCreate />
         </Modal>
-
         <Modal
           show={this.state.isOpenModalEmployee}
           onClose={this.toggleModalEmployee}
-          title="Creeate new employee"
+          title="Create a new employee"
         >
-          Employee
+          <EmployeeCreate />
         </Modal>
-
+        <Modal
+          show={this.state.isOpenModalRemoveCompany}
+          onClose={this.toggleModalRemoveCompany}
+          title="Remove Company"
+        >
+          Removendo item {this.state.companyToRemove}
+        </Modal>
+        ;
         <CompanyList>
-          <NoDataRegistered>
-            <MdBusiness color="#fff" size={150} />
+          <NoDataRegistered hasData={companies}>
+            <div>
+              <MdBusiness color="#fff" size={150} />
+            </div>
+            <h2>No registered companies</h2>
           </NoDataRegistered>
-          <h2>No registered companies</h2>
+
+          <ContainerTable hasData={companies}>
+            <table>
+              <thead>
+                <th>Company</th>
+                <th>Revenue</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th />
+                <th />
+                <th />
+              </thead>
+              <tbody>
+                {companies?.map((company, index) => (
+                  <tr key={company.name.id}>
+                    <td width="25%">{company.name}</td>
+                    <td width="15%">{company.revenueFormatted}</td>
+                    <td width="15%">{company.phoneFormatted}</td>
+                    <td width="36%">{company.address}</td>
+                    <td width="3%">
+                      <a href="#" title="Export to PDF">
+                        <MdPictureAsPdf color="#2c303a" size={26} />
+                      </a>
+                    </td>
+                    <td width="3%">
+                      <a
+                        href="#"
+                        title="Remove company"
+                        onClick={() =>
+                          this.toggleModalRemoveCompany(company.name)
+                        }
+                      >
+                        <MdDelete color="#2c303a" size={26} />
+                      </a>
+                    </td>
+                    <td width="3%">
+                      <Link to="/company/1" title="Access company details">
+                        <MdVisibility color="#2c303a" size={26} />
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </ContainerTable>
         </CompanyList>
       </Container>
     );
   }
 }
 
-export default connect(state => ({
-  company: state.company,
-}))(Home);
+const mapStateToProps = state => {
+  return {
+    companies: state.company,
+  };
+};
+
+export default connect(mapStateToProps)(Home);

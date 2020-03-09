@@ -21,13 +21,15 @@ class Modal extends Component {
           {this.props?.children}
 
           <div className="footer">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={this.props?.onClose}
-            >
-              Close
-            </button>
+            <div>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={this.props?.onClose}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </Container>

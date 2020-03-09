@@ -19,7 +19,7 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   }
 
-  body, input, button {
+  body, input, button, select {
     font-size: 16px;
     font-family: 'Roboto', Arial, Helvetica, sans-serif;
     color: #2c303a;
@@ -30,6 +30,13 @@ export default createGlobalStyle`
     background-color: #fff;
     border: 1px solid #2c303a;
     padding: 10px;
+    border-radius: 4px;
+  }
+
+  select {
+    margin-right: 10px;
+    background-color: #fff;
+    border: 1px solid #2c303a;
     border-radius: 4px;
   }
 
@@ -82,5 +89,35 @@ export default createGlobalStyle`
       background: #ff961d;
       color: #2c303a;
     }
-  } 
+  }
+  
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background-color: #e1e3e8;
+    }
+
+    thead th {
+      color: #2c303a;
+      text-align: left;
+      padding: 12px;
+    }
+
+    tbody td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+
+      a:hover {
+        svg {
+          color: #ff961d !important;
+        }
+      }
+    }
+  }
 `;
