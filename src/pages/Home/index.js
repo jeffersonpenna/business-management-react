@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 
 import {
   MdBusiness,
@@ -31,6 +32,18 @@ class Home extends Component {
     isOpenModalRemoveCompany: false,
     companyToRemoveId: 0,
     companyToRemoveName: '',
+    toFilterCompany: null,
+  };
+
+  componentDidMount() {
+    this.updateFilter();
+  }
+
+  updateFilter = () => {
+    const values = queryString.parse(this.props.location.search);
+    console.log(values, '---------');
+
+    this.setState({ toFilterCompany: values.company || null });
   };
 
   toggleModalRemoveCompany = (
@@ -76,8 +89,21 @@ class Home extends Component {
     });
   };
 
+  filterCompaniesToShow = () => {
+    let { companies } = this.props;
+
+    if (this.state.toFilterCompany) {
+      companies = companies.filter(company => {
+        company.name.startsWith(this.state.toFilterCompany);
+      });
+    }
+
+    return companies;
+  };
+
   render() {
-    const { companies } = this.props;
+    const companies = this.filterCompaniesToShow();
+
     return (
       <Container>
         <div className="btn-group">
