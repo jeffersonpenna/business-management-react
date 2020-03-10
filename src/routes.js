@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
-import Company from './pages/Company/list';
+import Company from './pages/Company/show';
 
 export default function Routes() {
   return (

@@ -5,6 +5,7 @@ import { Container } from './styles';
 
 class EmployeeCreate extends Component {
   state = {
+    id: 0,
     company: 0,
     name: '',
     gender: '',
@@ -30,9 +31,7 @@ class EmployeeCreate extends Component {
 
   handleAddCompany = event => {
     event.preventDefault();
-
     const { dispatch } = this.props;
-
     dispatch({
       type: '@company/ADD',
       company: this.state,
@@ -49,8 +48,8 @@ class EmployeeCreate extends Component {
             onChange={this.handleChange}
           >
             <option value="0">-- Select a company --</option>
-            <option value="1">Accenture</option>
-            <option value="2">COCUS</option>
+            <option value="1">Company 1</option>
+            <option value="2">Company 2</option>
           </select>
           <input
             type="text"

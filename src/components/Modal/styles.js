@@ -8,6 +8,16 @@ export const Container = styled.div`
   right: 0;
   background-color: rgba(0, 0, 0, 0.3);
   padding: 3.125rem;
+  text-align: center;
+
+  h3 {
+    strong {
+      display: block;
+      text-transform: uppercase;
+      padding-top: 24px;
+      color: #ff961d;
+    }
+  }
 
   .modal {
     background-color: #fff;
@@ -29,6 +39,14 @@ export const Container = styled.div`
       right: 0;
       bottom: 0;
       margin-bottom: 1.25rem;
+
+      div {
+        display: flex;
+      }
+
+      button.modal-btn-success {
+        display: ${props => (props.hasSuccessButton ? 'block' : 'none')};
+      }
 
       button:not(:last-of-type) {
         margin-right: 10px;

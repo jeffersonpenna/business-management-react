@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   .btn-group {
@@ -17,7 +17,6 @@ export const ContainerTable = styled.div`
   display: ${props => (props.hasData.length ? 'block' : 'none')};
   margin: 0 auto;
   max-width: 1280px;
-  margin-top: 50px;
   padding-bottom: 50px;
   width: 100%;
 `;

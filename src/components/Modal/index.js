@@ -12,7 +12,7 @@ class Modal extends Component {
     }
 
     return (
-      <Container>
+      <Container hasSuccessButton={this.props?.hasSuccessButton}>
         <div className="modal">
           <div className="modal__tittle">
             <h2>{this.props?.title}</h2>
@@ -29,6 +29,17 @@ class Modal extends Component {
               >
                 Close
               </button>
+              {this.props?.hasSuccessButton ? (
+                <button
+                  type="button"
+                  className="btn btn-primary--dark modal-btn-success"
+                  onClick={this.props?.onSuccess}
+                >
+                  Confirm
+                </button>
+              ) : (
+                ''
+              )}
             </div>
           </div>
         </div>
@@ -39,6 +50,7 @@ class Modal extends Component {
 
 Modal.props = {
   onClose: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func,
   show: PropTypes.bool,
   children: PropTypes.node,
   title: PropTypes.string,

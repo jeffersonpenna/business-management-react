@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import {
   MdBusiness,
   MdPictureAsPdf,
@@ -9,6 +10,8 @@ import {
 } from 'react-icons/md';
 
 import Modal from '../../components/Modal';
+import formatAddress from '../../utils/formatAddress';
+import formatCurrency from '../../utils/formatCurrency';
 
 import CompanyCreate from '../Company/create';
 import EmployeeCreate from '../Employee/create';
@@ -25,13 +28,18 @@ class Home extends Component {
     isOpenModalCompany: false,
     isOpenModalEmployee: false,
     isOpenModalRemoveCompany: false,
-    companyToRemove: '',
+    companyToRemoveId: 0,
+    companyToRemoveName: '',
   };
 
-  toggleModalRemoveCompany = companyToRemove => {
+  toggleModalRemoveCompany = (
+    companyToRemoveId = null,
+    companyToRemoveName = null
+  ) => {
     this.setState({
       isOpenModalRemoveCompany: !this.state.isOpenModalRemoveCompany,
-      companyToRemove,
+      companyToRemoveId,
+      companyToRemoveName,
     });
   };
 
@@ -44,6 +52,18 @@ class Home extends Component {
   toggleModalEmployee = () => {
     this.setState({
       isOpenModalEmployee: !this.state.isOpenModalEmployee,
+    });
+  };
+
+  handleRemoveCompany = () => {
+    const companyId = this.state.companyToRemoveId;
+
+    if (!companyId) return;
+
+    const { dispatch } = this.props;
+    dispatch({
+      type: '@company/REMOVE',
+      companyId,
     });
   };
 
@@ -84,9 +104,14 @@ class Home extends Component {
         <Modal
           show={this.state.isOpenModalRemoveCompany}
           onClose={this.toggleModalRemoveCompany}
+          onSuccess={this.handleRemoveCompany}
+          hasSuccessButton
           title="Remove Company"
         >
-          Removendo item {this.state.companyToRemove}
+          <h3>
+            Are you sure you want remove the company{' '}
+            <strong>{this.state.companyToRemoveName}</strong>
+          </h3>
         </Modal>
         ;
         <CompanyList>
@@ -100,38 +125,41 @@ class Home extends Component {
           <ContainerTable hasData={companies}>
             <table>
               <thead>
-                <th>Company</th>
-                <th>Revenue</th>
-                <th>Phone</th>
-                <th>Address</th>
-                <th />
-                <th />
-                <th />
+                <tr>
+                  <th width="25%">Company</th>
+                  <th width="15%">Revenue</th>
+                  <th width="15%">Phone</th>
+                  <th width="36%">Address</th>
+                  <th colSpan="3" />
+                </tr>
               </thead>
               <tbody>
                 {companies?.map((company, index) => (
-                  <tr key={company.name.id}>
-                    <td width="25%">{company.name}</td>
-                    <td width="15%">{company.revenueFormatted}</td>
-                    <td width="15%">{company.phoneFormatted}</td>
-                    <td width="36%">{company.address}</td>
-                    <td width="3%">
+                  <tr key={company.id}>
+                    <td>{company.name}</td>
+                    <td>{company.revenueFormatted}</td>
+                    <td>{company.phone}</td>
+                    <td>{company.address}</td>
+                    <td>
                       <a href="#" title="Export to PDF">
                         <MdPictureAsPdf color="#2c303a" size={26} />
                       </a>
                     </td>
-                    <td width="3%">
+                    <td>
                       <a
                         href="#"
                         title="Remove company"
                         onClick={() =>
-                          this.toggleModalRemoveCompany(company.name)
+                          this.toggleModalRemoveCompany(
+                            company.id,
+                            company.name
+                          )
                         }
                       >
                         <MdDelete color="#2c303a" size={26} />
                       </a>
                     </td>
-                    <td width="3%">
+                    <td>
                       <Link to="/company/1" title="Access company details">
                         <MdVisibility color="#2c303a" size={26} />
                       </Link>
@@ -149,7 +177,11 @@ class Home extends Component {
 
 const mapStateToProps = state => {
   return {
-    companies: state.company,
+    companies: state.company.map(company => ({
+      ...company,
+      address: formatAddress(company),
+      revenueFormatted: formatCurrency(company.revenue),
+    })),
   };
 };
 

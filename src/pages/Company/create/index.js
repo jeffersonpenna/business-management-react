@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
-import * as CompanyActions from '../../../store/modules/company/actions';
-
 import { Container } from './styles';
 
 class CompanyCreate extends Component {
   state = {
+    id: 0,
     name: '',
     revenue: 0,
     phone: '',
@@ -33,11 +30,14 @@ class CompanyCreate extends Component {
   handleAddCompany = event => {
     event.preventDefault();
 
-    const { dispatch } = this.props;
+    const moment = Date.now();
+    const company = this.state;
+    company.id = moment;
 
+    const { dispatch } = this.props;
     dispatch({
       type: '@company/ADD',
-      company: this.state,
+      company,
     });
   };
 
