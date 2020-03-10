@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import history from '../../services/history';
@@ -7,20 +8,29 @@ import { Container } from './styles';
 
 class Header extends Component {
   state = {
-    toSearch: '',
+    search: '',
   };
 
-  execFilter = event => {
+  handleSubmitForm = event => {
     event.preventDefault();
 
-    // const { toSearch } = this.state;
-    // const url = !toSearch ? '/' : `/?company=${toSearch}`;
+    const { search } = this.state;
+    const { dispatch } = this.props;
 
-    // history.push(url);
+    this.setState({ search: '' });
+
+    const urlToRedirect = !search ? '/' : `/?q=${search}`;
+
+    history.push(urlToRedirect);
+
+    dispatch({
+      type: '@search/UPDATE',
+      search,
+    });
   };
 
   handleChange = event => {
-    this.setState({ toSearch: event.target.value });
+    this.setState({ search: event.target.value });
   };
 
   render() {
@@ -29,14 +39,11 @@ class Header extends Component {
         <nav>
           <Link to="/">Business Management</Link>
           <div>
-            <form
-              onSubmit={this.execFilter}
-              className="form-inline my-2 my-lg-0"
-            >
+            <form onSubmit={this.handleSubmitForm} className="form-inline">
               <input
                 type="search"
+                value={this.state.search}
                 placeholder="Search company"
-                disabled
                 onChange={this.handleChange}
               />
               <button className="btn btn-light" type="submit">
@@ -50,4 +57,8 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => ({
+  search: state.search,
+});
+
+export default connect(mapStateToProps)(Header);

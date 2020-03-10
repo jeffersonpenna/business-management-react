@@ -14,6 +14,7 @@ import {
 import Modal from '../../components/Modal';
 import formatAddress from '../../utils/formatAddress';
 import formatCurrency from '../../utils/formatCurrency';
+import history from '../../services/history';
 
 import CompanyCreate from '../Company/create';
 import EmployeeCreate from '../Employee/create';
@@ -32,18 +33,34 @@ class Home extends Component {
     isOpenModalRemoveCompany: false,
     companyToRemoveId: 0,
     companyToRemoveName: '',
-    toFilterCompany: null,
   };
 
-  componentDidMount() {
-    this.updateFilter();
-  }
+  handleFilterCompany = () => {
+    const { companies } = this.props;
+    const queryToFilter = this.getQueryParam();
 
-  updateFilter = () => {
-    const values = queryString.parse(this.props.location.search);
-    console.log(values, '---------');
+    if (queryToFilter) {
+      const companiesFiltered = companies.filter(company => {
+        return company.name.startsWith(queryToFilter);
+      });
 
-    this.setState({ toFilterCompany: values.company || null });
+      return companiesFiltered;
+    }
+
+    return companies;
+  };
+
+  getQueryParam = () => {
+    const queryParams = queryString.parse(this.props.location?.search);
+    let queryToFilter = null;
+
+    if (queryParams?.q) {
+      queryToFilter = queryParams.q;
+    } else if (this.props.search?.length > 0) {
+      queryToFilter = this.props.search[0];
+    }
+
+    return queryToFilter;
   };
 
   toggleModalRemoveCompany = (
@@ -89,23 +106,50 @@ class Home extends Component {
     });
   };
 
-  filterCompaniesToShow = () => {
-    let { companies } = this.props;
+  handleClearSearch = () => {
+    const { dispatch } = this.props;
 
-    if (this.state.toFilterCompany) {
-      companies = companies.filter(company => {
-        company.name.startsWith(this.state.toFilterCompany);
-      });
-    }
+    history.push('/');
 
-    return companies;
+    dispatch({
+      type: '@search/UPDATE',
+      search: '',
+    });
+  };
+
+  clearSearchData = () => {
+    return (
+      <div className="btn-group">
+        <button
+          type="button"
+          className="btn btn-light"
+          onClick={this.handleClearSearch}
+        >
+          Clear search
+        </button>
+      </div>
+    );
   };
 
   render() {
-    const companies = this.filterCompaniesToShow();
+    const companies = this.handleFilterCompany();
+    const hasQueryParam = this.getQueryParam();
 
     return (
       <Container>
+        {hasQueryParam ? (
+          <div className="btn-group">
+            <button
+              type="button"
+              className="btn btn-light"
+              onClick={this.handleClearSearch}
+            >
+              Clear search
+            </button>
+          </div>
+        ) : (
+          ''
+        )}
         <div className="btn-group">
           <button
             type="button"
@@ -223,6 +267,7 @@ const mapStateToProps = state => {
       address: formatAddress(company),
       revenueFormatted: formatCurrency(company.revenue),
     })),
+    search: state.search,
   };
 };
 

@@ -11,8 +11,11 @@ const enhancer =
 const store = createStore(rootReducer, persistedState, enhancer);
 
 store.subscribe(() => {
+  const toLocalStorage = { ...store.getState() };
+  if (toLocalStorage.search) delete toLocalStorage.search;
+
   saveState({
-    ...store.getState(),
+    ...toLocalStorage,
   });
 });
 
