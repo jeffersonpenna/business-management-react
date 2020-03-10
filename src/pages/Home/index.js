@@ -167,7 +167,10 @@ class Home extends Component {
                       </a>
                     </td>
                     <td>
-                      <Link to="/company/1" title="Access company details">
+                      <Link
+                        to={`/company/${company.id}`}
+                        title="Access company details"
+                      >
                         <MdVisibility color="#2c303a" size={26} />
                       </Link>
                     </td>

@@ -55,10 +55,12 @@ class EmployeeCreate extends Component {
             this.handleAddEmployee(event, this.props.onSuccessFunc)
           }
         >
-          <select name="company" onChange={this.handleChange}>
+          <select name="company" onChange={this.handleInputChange}>
             <option value="0">-- Select a company --</option>
             {this.props.companies.map(company => (
-              <option value={company.id}>{company.name}</option>
+              <option key={company.id} value={company.id}>
+                {company.name}
+              </option>
             ))}
           </select>
           <input
