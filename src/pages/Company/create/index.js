@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 import { Container } from './styles';
 
 class CompanyCreate extends Component {
@@ -27,12 +28,15 @@ class CompanyCreate extends Component {
     });
   };
 
-  handleAddCompany = event => {
+  handleAddCompany = (event, onSuccessFunc) => {
     event.preventDefault();
 
     const moment = Date.now();
     const company = this.state;
     company.id = moment;
+
+    onSuccessFunc();
+    toast.success('Data created with success');
 
     const { dispatch } = this.props;
     dispatch({
@@ -43,8 +47,12 @@ class CompanyCreate extends Component {
 
   render() {
     return (
-      <Container>
-        <form onSubmit={this.handleAddCompany}>
+      <Container onSuccessFunc>
+        <form
+          onSubmit={event =>
+            this.handleAddCompany(event, this.props.onSuccessFunc)
+          }
+        >
           <input
             type="text"
             name="name"

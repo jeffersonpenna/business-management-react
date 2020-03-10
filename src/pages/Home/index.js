@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { connect } from 'react-redux';
 
 import {
@@ -60,6 +61,9 @@ class Home extends Component {
 
     if (!companyId) return;
 
+    this.toggleModalRemoveCompany();
+    toast.success('Data removed with success');
+
     const { dispatch } = this.props;
     dispatch({
       type: '@company/REMOVE',
@@ -92,14 +96,17 @@ class Home extends Component {
           onClose={this.toggleModalCompany}
           title="Create a new company"
         >
-          <CompanyCreate />
+          <CompanyCreate onSuccessFunc={this.toggleModalCompany} />
         </Modal>
         <Modal
           show={this.state.isOpenModalEmployee}
           onClose={this.toggleModalEmployee}
           title="Create a new employee"
         >
-          <EmployeeCreate />
+          <EmployeeCreate
+            companies={companies}
+            onSuccessFunc={this.toggleModalEmployee}
+          />
         </Modal>
         <Modal
           show={this.state.isOpenModalRemoveCompany}

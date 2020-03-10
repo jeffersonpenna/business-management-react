@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { Container } from './styles';
 
@@ -29,27 +30,36 @@ class EmployeeCreate extends Component {
     });
   };
 
-  handleAddCompany = event => {
+  handleAddEmployee = (event, onSuccessFunc) => {
     event.preventDefault();
+
+    const moment = Date.now();
+    const employee = this.state;
+    employee.id = moment;
+
+    onSuccessFunc();
+    toast.success('Data created with success');
+
     const { dispatch } = this.props;
     dispatch({
-      type: '@company/ADD',
-      company: this.state,
+      type: '@employee/ADD',
+      employee,
     });
   };
 
   render() {
     return (
-      <Container>
-        <form onSubmit={this.handleAddCompany}>
-          <select
-            value={this.state.company}
-            name="company"
-            onChange={this.handleChange}
-          >
+      <Container onSuccessFunc companies>
+        <form
+          onSubmit={event =>
+            this.handleAddEmployee(event, this.props.onSuccessFunc)
+          }
+        >
+          <select name="company" onChange={this.handleChange}>
             <option value="0">-- Select a company --</option>
-            <option value="1">Company 1</option>
-            <option value="2">Company 2</option>
+            {this.props.companies.map(company => (
+              <option value={company.id}>{company.name}</option>
+            ))}
           </select>
           <input
             type="text"
@@ -118,8 +128,5 @@ class EmployeeCreate extends Component {
     );
   }
 }
-
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators(CompanyActions, dispatch);
 
 export default connect()(EmployeeCreate);

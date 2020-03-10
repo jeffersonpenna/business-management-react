@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import { darken } from 'polished';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
@@ -119,5 +120,17 @@ export default createGlobalStyle`
         }
       }
     }
+  }
+
+  .Toastify__toast {
+    border-radius: 4px;
+  }
+
+  .Toastify__toast--success {
+    background: #7bc87d;
+  }
+
+  .Toastify__toast--error {
+    background: #dd5d54;
   }
 `;
