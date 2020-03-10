@@ -69,6 +69,11 @@ class Home extends Component {
       type: '@company/REMOVE',
       companyId,
     });
+
+    dispatch({
+      type: '@employee/REMOVE_FROM_COMPANY',
+      companyId,
+    });
   };
 
   render() {

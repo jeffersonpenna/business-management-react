@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: ${props => (props.hasData ? 'none' : 'flex')};
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;

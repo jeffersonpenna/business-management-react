@@ -10,14 +10,16 @@ export default function companyReducer(state = [], action) {
     }
     case '@employee/REMOVE_FROM_COMPANY':
       return producer(state, draft => {
-        console.log('@employee/REMOVE_FROM_COMPANY', action.companyId);
-        // const companyIndex = draft.findIndex(
-        //   company => company.id === action.companyId
-        // );
+        let employeeIndex = -1;
+        do {
+          employeeIndex = draft.findIndex(
+            item => item.company == action.companyId
+          );
 
-        // if (companyIndex >= 0) {
-        //   draft.splice(companyIndex, 1);
-        // }
+          if (employeeIndex != -1) {
+            draft.splice(employeeIndex, 1);
+          }
+        } while (employeeIndex != -1);
       });
     default:
       return state;

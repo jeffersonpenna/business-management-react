@@ -40,7 +40,6 @@ class CompanyList extends Component {
         <Container>
           {this.includeBackButton()};
           <NoDataFound
-            data={company}
             message={this.state.noCompanyMessage}
             icon={<MdBusiness color="#fff" size={150} />}
           />
