@@ -13,10 +13,10 @@ class Header extends Component {
   execFilter = event => {
     event.preventDefault();
 
-    const { toSearch } = this.state;
-    const url = !toSearch ? '/' : `/?company=${toSearch}`;
+    // const { toSearch } = this.state;
+    // const url = !toSearch ? '/' : `/?company=${toSearch}`;
 
-    history.push(url);
+    // history.push(url);
   };
 
   handleChange = event => {
@@ -36,6 +36,7 @@ class Header extends Component {
               <input
                 type="search"
                 placeholder="Search company"
+                disabled
                 onChange={this.handleChange}
               />
               <button className="btn btn-light" type="submit">

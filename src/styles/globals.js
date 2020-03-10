@@ -50,6 +50,14 @@ export default createGlobalStyle`
     cursor: pointer;
   }
 
+  a.disabled {
+  pointer-events: none;
+  cursor: default;
+  svg {
+    color: #e1e3e8!important;
+  }
+}
+
   .btn {
     padding: 0.5rem 0.875rem;
     border: 0;

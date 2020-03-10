@@ -179,7 +179,7 @@ class Home extends Component {
                     <td>{company.phone}</td>
                     <td>{company.address}</td>
                     <td>
-                      <a href="#" title="Export to PDF">
+                      <a className="disabled" href="#" title="Export to PDF">
                         <MdPictureAsPdf color="#2c303a" size={26} />
                       </a>
                     </td>
