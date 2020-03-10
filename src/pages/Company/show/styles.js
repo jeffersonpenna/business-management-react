@@ -1,9 +1,19 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  .btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3.125rem;
+
+    button:not(:last-of-type) {
+      margin-right: 20px;
+    }
+  }
+`;
 
 export const ContainerDetails = styled.div`
-  display: ${props => (props.hasData ? 'block' : 'none')};
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 1.25rem 3.125rem;

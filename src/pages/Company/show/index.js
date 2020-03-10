@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { MdBusiness } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 import formatAddress from '../../../utils/formatAddress';
 import formatCurrency from '../../../utils/formatCurrency';
@@ -21,18 +22,35 @@ class CompanyList extends Component {
     noCompanyMessage: 'Company not found',
   };
 
+  includeBackButton = () => {
+    return (
+      <div className="btn-group">
+        <Link to="/" title="Access company details" className="btn btn-primary">
+          Back to home
+        </Link>
+      </div>
+    );
+  };
+
   render() {
     const { company, employees } = this.state;
 
+    if (!checkHasData(company)) {
+      return (
+        <Container>
+          {this.includeBackButton()};
+          <NoDataFound
+            data={company}
+            message={this.state.noCompanyMessage}
+            icon={<MdBusiness color="#fff" size={150} />}
+          />
+        </Container>
+      );
+    }
     return (
       <Container>
-        <NoDataFound
-          data={company}
-          message={this.state.noCompanyMessage}
-          icon={<MdBusiness color="#fff" size={150} />}
-        />
-
-        <ContainerDetails hasData={checkHasData(company)}>
+        {this.includeBackButton()};
+        <ContainerDetails>
           <h1>{company.name}</h1>
           <Card>
             <div>

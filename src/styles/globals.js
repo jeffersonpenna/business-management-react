@@ -56,6 +56,7 @@ export default createGlobalStyle`
     border-radius: 4px;
     transition: all 0.2s;
     text-transform: uppercase;
+    text-decoration: none;
   }
 
   .btn-light {
