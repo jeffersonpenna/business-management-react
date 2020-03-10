@@ -66,6 +66,7 @@ class EmployeeCreate extends Component {
           <input
             type="text"
             name="name"
+            required
             placeholder="Name"
             onChange={this.handleInputChange}
           />
@@ -73,12 +74,14 @@ class EmployeeCreate extends Component {
             <input
               type="tel"
               name="phone"
+              required
               placeholder="Phone"
               onChange={this.handleInputChange}
             />
             <input
               type="text"
               name="zipcode"
+              required
               placeholder="Zipcode"
               onChange={this.handleInputChange}
             />
@@ -87,6 +90,7 @@ class EmployeeCreate extends Component {
           <input
             type="text"
             name="street"
+            required
             placeholder="Street"
             onChange={this.handleInputChange}
           />
@@ -94,6 +98,7 @@ class EmployeeCreate extends Component {
             <input
               type="text"
               name="number"
+              required
               placeholder="Number"
               onChange={this.handleInputChange}
             />
@@ -107,18 +112,21 @@ class EmployeeCreate extends Component {
           <input
             type="text"
             name="neighborhood"
+            required
             placeholder="Neighborhood"
             onChange={this.handleInputChange}
           />
           <input
             type="text"
             name="city"
+            required
             placeholder="City"
             onChange={this.handleInputChange}
           />
           <input
             type="text"
             name="state"
+            required
             placeholder="State"
             onChange={this.handleInputChange}
           />

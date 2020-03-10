@@ -56,12 +56,14 @@ class CompanyCreate extends Component {
           <input
             type="text"
             name="name"
+            required
             placeholder="Name"
             onChange={this.handleInputChange}
           />
           <div className="form-inline">
             <input
               type="number"
+              required
               name="revenue"
               placeholder="Revenue"
               onChange={this.handleInputChange}
@@ -69,20 +71,23 @@ class CompanyCreate extends Component {
             <input
               type="tel"
               name="phone"
+              required
               placeholder="Phone"
               onChange={this.handleInputChange}
             />
           </div>
 
           <input
-            type="text"
+            type="number"
             name="zipcode"
+            required
             placeholder="Zipcode"
             onChange={this.handleInputChange}
           />
           <input
             type="text"
             name="street"
+            required
             placeholder="Street"
             onChange={this.handleInputChange}
           />
@@ -90,6 +95,7 @@ class CompanyCreate extends Component {
             <input
               type="text"
               name="number"
+              required
               placeholder="Number"
               onChange={this.handleInputChange}
             />
@@ -103,6 +109,7 @@ class CompanyCreate extends Component {
           <input
             type="text"
             name="neighborhood"
+            required
             placeholder="Neighborhood"
             onChange={this.handleInputChange}
           />
@@ -115,6 +122,7 @@ class CompanyCreate extends Component {
           <input
             type="text"
             name="state"
+            required
             placeholder="State"
             onChange={this.handleInputChange}
           />
@@ -126,8 +134,5 @@ class CompanyCreate extends Component {
     );
   }
 }
-
-// const mapDispatchToProps = dispatch =>
-//   bindActionCreators(CompanyActions, dispatch);
 
 export default connect()(CompanyCreate);
